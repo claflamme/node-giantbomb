@@ -28,7 +28,30 @@ module.exports = (apiKey) ->
 
     request opts, cb
 
+  _buildListQuery: (config) ->
+
+    qs =
+      limit: config.perPage or 10
+      offset: 0
+
+    if config.page
+      qs.offset = (config.page - 1) * qs.limit
+
+    if config.sortBy
+      qs.sort = config.sortBy + ':' + config.sortDirection or 'asc'
+
+    if config.filters
+      filters = config.filters.map (filter) ->
+        filter.field + ':' + filter.value
+      qs.filter = filters.join ','
+
+    return qs
+
   search: (q, config, cb) ->
+
+    # The search API is kind of fucked up compared to other list resources.
+    # It takes different parameters and returns different results, so it has its
+    # own special logic here.
 
     if config.limit
       unless config.resources and config.resources.length is 1
@@ -55,3 +78,12 @@ module.exports = (apiKey) ->
       qs.field_list = config.fields.join ','
 
     @_request { url: "game/#{ gameId }", qs: qs }, cb
+
+  games: (config, cb) ->
+
+    qs = @_buildListQuery config
+
+    if config.fields
+      qs.field_list = config.fields.join ','
+
+    @_request { url: 'games', qs: qs }, cb
