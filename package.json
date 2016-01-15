@@ -1,0 +1,24 @@
+{
+  "name": "giantbomb",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "coffee test/index.coffee"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.0.0",
+    "request": "^2.67.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.4.0"
+  }
+}
