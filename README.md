@@ -8,6 +8,10 @@ It also aims to provide a simplified and consistent interface, more robust docum
 
 Check out [the wiki](https://github.com/claflamme/node-giantbomb/wiki) for instructions on how to install and use the package.
 
+### Support
+
+If you have any problems or questions, please [create an issue](https://github.com/claflamme/node-giantbomb/issues) or message [hogonalog](http://www.giantbomb.com/profile/hogonalog/) on GiantBomb.
+
 
 
 
