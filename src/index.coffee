@@ -6,6 +6,16 @@ SearchLimitError = (msg) ->
   @name = 'SearchLimitError'
   return @
 
+_sortByKey = (obj) ->
+
+  keys = Object.keys(obj).sort()
+  output = {}
+
+  keys.forEach (key) ->
+    output[key] = obj[key]
+
+  return output
+
 module.exports = (apiKey) ->
 
   httpDefaults =
@@ -26,7 +36,14 @@ module.exports = (apiKey) ->
       url = "#{ url }?#{ qs }"
       console.log '--> API Call: ' + url
 
-    request opts, cb
+    request opts, (err, res, body) ->
+
+      if body.number_of_total_results
+        total = body.number_of_total_results
+        perPage = body.number_of_page_results
+        body.number_of_total_pages = Math.ceil total / perPage
+
+      cb err, res, _sortByKey body
 
   _buildListQuery: (config) ->
 
