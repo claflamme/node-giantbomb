@@ -58,7 +58,7 @@ module.exports = (apiKey) ->
       qs.offset = (config.page - 1) * qs.limit
 
     if config.sortBy
-      qs.sort = config.sortBy + ':' + config.sortDirection or 'asc'
+      qs.sort = config.sortBy + ':' + config.sortDir or 'asc'
 
     if config.filters
       filters = config.filters.map (filter) ->
@@ -103,7 +103,7 @@ module.exports = (apiKey) ->
 
     unless config.sortBy
       config.sortBy = 'number_of_user_reviews'
-      config.sortDirection = 'desc'
+      config.sortDir = 'desc'
 
     qs = @_buildListQuery config
 
