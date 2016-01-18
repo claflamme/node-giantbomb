@@ -34,6 +34,9 @@ module.exports = (apiKey) ->
       limit: config.perPage or 10
       offset: 0
 
+    if config.fields
+      qs.field_list = config.fields.join ','
+
     if config.page
       qs.offset = (config.page - 1) * qs.limit
 
@@ -81,9 +84,17 @@ module.exports = (apiKey) ->
 
   games: (config, cb) ->
 
+    unless config.sortBy
+      config.sortBy = 'number_of_user_reviews'
+      config.sortDirection = 'desc'
+
     qs = @_buildListQuery config
 
-    if config.fields
-      qs.field_list = config.fields.join ','
-
     @_request { url: 'games', qs: qs }, cb
+
+  searchGames: (q, config, cb) ->
+
+    config.filters = config.filters or []
+    config.filters.push { field: 'name', value: q }
+
+    @games config, cb
