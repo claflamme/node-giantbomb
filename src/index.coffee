@@ -1,12 +1,8 @@
+util = require 'util'
 _ = require 'lodash'
 request = require 'request'
 
-SearchLimitError = (msg) ->
-  @message = 'Limit can only be set if searching a single resource.'
-  @name = 'SearchLimitError'
-  return @
-
-_sortByKey = (obj) ->
+sortByKey = (obj) ->
 
   keys = Object.keys(obj).sort()
   output = {}
@@ -16,6 +12,21 @@ _sortByKey = (obj) ->
 
   return output
 
+mapFilter = (filter, i) ->
+
+  # Normal filters only take a single value.
+  # E.g. filter=name:assassin
+  if filter.value
+    return filter.field + ':' + filter.value
+
+  # Date filters take a range.
+  # E.g. filter=date_added:date1|date2
+  if filter.start and filter.end
+    start = filter.start.toISOString()
+    end = filter.end.toISOString()
+    return util.format '%s:%s|%s', filter.field, start, end
+
+
 module.exports = (apiKey) ->
 
   httpDefaults =
@@ -24,6 +35,8 @@ module.exports = (apiKey) ->
     qs:
       api_key: apiKey
       format: 'json'
+    qsStringifyOptions:
+      encode: false
 
   _request: (opts, cb) ->
 
@@ -42,8 +55,9 @@ module.exports = (apiKey) ->
         total = body.number_of_total_results
         perPage = body.number_of_page_results
         body.number_of_total_pages = Math.ceil total / perPage
+        body = sortByKey body
 
-      cb err, res, _sortByKey body
+      cb err, res, sortByKey body
 
   _buildListQuery: (config) ->
 
@@ -61,8 +75,7 @@ module.exports = (apiKey) ->
       qs.sort = config.sortBy + ':' + config.sortDir or 'asc'
 
     if config.filters
-      filters = config.filters.map (filter) ->
-        filter.field + ':' + filter.value
+      filters = config.filters.map mapFilter
       qs.filter = filters.join ','
 
     return qs
@@ -75,7 +88,7 @@ module.exports = (apiKey) ->
 
     if config.limit
       unless config.resources and config.resources.length is 1
-        throw SearchLimitError()
+        throw new Error 'Limit can only be set if searching a single resource.'
 
     qs =
       query: q
