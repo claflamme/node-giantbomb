@@ -2,22 +2,12 @@ util = require 'util'
 _ = require 'lodash'
 request = require 'request'
 
-sortByKey = (obj) ->
-
-  keys = Object.keys(obj).sort()
-  output = {}
-
-  keys.forEach (key) ->
-    output[key] = obj[key]
-
-  return output
-
-mapFilter = (filter, i) ->
+formatFilterObject = (filter, i) ->
 
   # Normal filters only take a single value.
   # E.g. filter=name:assassin
   if filter.value
-    return filter.field + ':' + filter.value
+    return util.format '%s:%s', filter.field, filter.value
 
   # Date filters take a range.
   # E.g. filter=date_added:date1|date2
@@ -25,7 +15,6 @@ mapFilter = (filter, i) ->
     start = filter.start.toISOString()
     end = filter.end.toISOString()
     return util.format '%s:%s|%s', filter.field, start, end
-
 
 module.exports = (apiKey) ->
 
@@ -55,9 +44,8 @@ module.exports = (apiKey) ->
         total = body.number_of_total_results
         perPage = body.number_of_page_results
         body.number_of_total_pages = Math.ceil total / perPage
-        body = sortByKey body
 
-      cb err, res, sortByKey body
+      cb err, res, body
 
   _buildListQuery: (config) ->
 
@@ -75,7 +63,7 @@ module.exports = (apiKey) ->
       qs.sort = config.sortBy + ':' + config.sortDir or 'asc'
 
     if config.filters
-      filters = config.filters.map mapFilter
+      filters = config.filters.map formatFilterObject
       qs.filter = filters.join ','
 
     return qs
