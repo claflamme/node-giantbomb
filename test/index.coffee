@@ -35,8 +35,18 @@ test 'games - specific fields', (t) ->
   gb.games config, (err, res, body) ->
     game = body.results[0]
     numKeys = Object.keys(game).length
-    t.equal body.error, 'OK', 'Returns OK.'
     t.equal numKeys, 2, 'Has expected number of fields.'
     t.ok game.name, 'Has name.'
     t.ok game.id, 'Has id.'
+    t.end()
+
+test 'games - multiple IDs', (t) ->
+
+  config =
+    filters: [
+      { field: 'id', value: [16909, 21590] }
+    ]
+
+  gb.games config, (err, res, body) ->
+    t.equal body.results.length, 2, 'Has 2 results.'
     t.end()

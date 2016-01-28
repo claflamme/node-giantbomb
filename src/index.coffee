@@ -4,10 +4,26 @@ request = require 'request'
 
 formatFilterObject = (filter, i) ->
 
-  # Normal filters only take a single value.
-  # E.g. filter=name:assassin
-  if filter.value
-    return util.format '%s:%s', filter.field, filter.value
+  # Normal filters take a field name and value to query. It's sort of like
+  # a WHERE clause.
+  #
+  #   E.g. return games where the name contains "assassin":
+  #   &filter=name:assassin
+  #
+  # If filtering by the `id` field, you can pass in multple values. Values are
+  # separated by pipes.
+  #
+  #   E.g. return results for Mass Effect 1 & 2:
+  #   filter=id:16909|21590
+  #
+  # Keep in mind that the above doesn't return "detail" resources, so it's
+  # suitable for displaying lists of items.
+  if filter?.value?
+
+    if not _.isArray filter.value
+      filter.value = [filter.value]
+
+    return util.format '%s:%s', filter.field, filter.value.join('|')
 
   # Date filters take a range.
   # E.g. filter=date_added:date1|date2
@@ -33,10 +49,7 @@ module.exports = (apiKey) ->
 
     # A wee bit of debugging help.
     if process.env.NODE_DEBUG is 'giantbomb'
-      url = opts.baseUrl + opts.url
-      qs = require('qs').stringify opts.qs
-      url = "#{ url }?#{ qs }"
-      console.log '--> API Call: ' + url
+      request.debug = true
 
     request opts, (err, res, body) ->
 
