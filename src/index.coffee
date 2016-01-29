@@ -2,6 +2,15 @@ util = require 'util'
 _ = require 'lodash'
 request = require 'request'
 
+httpDefaults =
+  baseUrl: 'http://api.giantbomb.com/'
+  json: true
+  qs:
+    api_key: ''
+    format: 'json'
+  qsStringifyOptions:
+    encode: false
+
 formatFilterObject = (filter, i) ->
 
   # Normal filters take a field name and value to query. It's sort of like
@@ -32,54 +41,47 @@ formatFilterObject = (filter, i) ->
     end = filter.end.toISOString()
     return util.format '%s:%s|%s', filter.field, start, end
 
+sendRequest = (opts, cb) ->
+
+  opts = _.defaultsDeep opts, httpDefaults
+
+  # A wee bit of debugging help.
+  if process.env.NODE_DEBUG is 'giantbomb'
+    request.debug = true
+
+  request opts, (err, res, body) ->
+
+    if body.number_of_total_results
+      total = body.number_of_total_results
+      perPage = body.number_of_page_results
+      body.number_of_total_pages = Math.ceil total / perPage
+
+    cb err, res, body
+
+buildListQuery = (config) ->
+
+  qs =
+    limit: config.perPage or 10
+    offset: 0
+
+  if config.fields
+    qs.field_list = config.fields.join ','
+
+  if config.page
+    qs.offset = (config.page - 1) * qs.limit
+
+  if config.sortBy
+    qs.sort = config.sortBy + ':' + config.sortDir or 'asc'
+
+  if config.filters
+    filters = config.filters.map formatFilterObject
+    qs.filter = filters.join ','
+
+  return qs
+
 module.exports = (apiKey) ->
 
-  httpDefaults =
-    baseUrl: 'http://api.giantbomb.com/'
-    json: true
-    qs:
-      api_key: apiKey
-      format: 'json'
-    qsStringifyOptions:
-      encode: false
-
-  _request: (opts, cb) ->
-
-    opts = _.defaultsDeep opts, httpDefaults
-
-    # A wee bit of debugging help.
-    if process.env.NODE_DEBUG is 'giantbomb'
-      request.debug = true
-
-    request opts, (err, res, body) ->
-
-      if body.number_of_total_results
-        total = body.number_of_total_results
-        perPage = body.number_of_page_results
-        body.number_of_total_pages = Math.ceil total / perPage
-
-      cb err, res, body
-
-  _buildListQuery: (config) ->
-
-    qs =
-      limit: config.perPage or 10
-      offset: 0
-
-    if config.fields
-      qs.field_list = config.fields.join ','
-
-    if config.page
-      qs.offset = (config.page - 1) * qs.limit
-
-    if config.sortBy
-      qs.sort = config.sortBy + ':' + config.sortDir or 'asc'
-
-    if config.filters
-      filters = config.filters.map formatFilterObject
-      qs.filter = filters.join ','
-
-    return qs
+  httpDefaults.qs.api_key = apiKey
 
   search: (q, config, cb) ->
 
@@ -102,7 +104,7 @@ module.exports = (apiKey) ->
     if config.fields
       qs.field_list = config.fields.join ','
 
-    @_request { url: 'search', qs: qs }, cb
+    sendRequest { url: 'search', qs: qs }, cb
 
   game: (gameId, config, cb) ->
 
@@ -111,7 +113,7 @@ module.exports = (apiKey) ->
     if config.fields
       qs.field_list = config.fields.join ','
 
-    @_request { url: "game/#{ gameId }", qs: qs }, cb
+    sendRequest { url: "game/#{ gameId }", qs: qs }, cb
 
   games: (config, cb) ->
 
@@ -119,9 +121,9 @@ module.exports = (apiKey) ->
       config.sortBy = 'number_of_user_reviews'
       config.sortDir = 'desc'
 
-    qs = @_buildListQuery config
+    qs = buildListQuery config
 
-    @_request { url: 'games', qs: qs }, cb
+    sendRequest { url: 'games', qs: qs }, cb
 
   searchGames: (q, config, cb) ->
 
