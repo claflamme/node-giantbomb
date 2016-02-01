@@ -106,28 +106,37 @@ module.exports = (apiKey) ->
 
     sendRequest { url: 'search', qs: qs }, cb
 
-  game: (gameId, config, cb) ->
+  games:
 
-    qs = {}
+    list: (config, cb) ->
 
-    if config.fields
-      qs.field_list = config.fields.join ','
+      unless config.sortBy
+        config.sortBy = 'number_of_user_reviews'
+        config.sortDir = 'desc'
 
-    sendRequest { url: "game/#{ gameId }", qs: qs }, cb
+      qs = buildListQuery config
 
-  games: (config, cb) ->
+      sendRequest { url: 'games', qs: qs }, cb
 
-    unless config.sortBy
-      config.sortBy = 'number_of_user_reviews'
-      config.sortDir = 'desc'
+    listById: (gameIds, config, cb) ->
 
-    qs = buildListQuery config
+      config.filters = config.filters or []
+      config.filters.push { field: 'id', value: gameIds }
 
-    sendRequest { url: 'games', qs: qs }, cb
+      @list config, cb
 
-  searchGames: (q, config, cb) ->
+    get: (gameId, config, cb) ->
 
-    config.filters = config.filters or []
-    config.filters.push { field: 'name', value: q }
+      qs = {}
 
-    @games config, cb
+      if config.fields
+        qs.field_list = config.fields.join ','
+
+      sendRequest { url: "game/#{ gameId }", qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters = config.filters or []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
