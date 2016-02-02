@@ -8,7 +8,7 @@
   },
   "description": "A simple, consistent wrapper for the Giant Bomb API.",
   "keywords": ["giantbomb", "giant", "bomb", "api", "game", "games", "client", "wrapper"],
-  "repository": "node-giantbomb",
+  "repository": "claflamme/node-giantbomb",
   "homepage": "https://github.com/claflamme/node-giantbomb",
   "bugs": {
     "url": "https://github.com/claflamme/node-giantbomb/issues"
