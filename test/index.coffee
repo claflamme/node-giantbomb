@@ -40,7 +40,7 @@ test 'games.list - specific fields', (t) ->
     t.ok game.id, 'Has id.'
     t.end()
 
-test.only 'games.listById - no config', (t) ->
+test 'games.listById - no config', (t) ->
 
   gb.games.listById [16909, 21590], {}, (err, res, body) ->
     t.equal body.results.length, 2, 'Has 2 results.'
