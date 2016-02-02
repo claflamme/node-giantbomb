@@ -108,6 +108,15 @@ module.exports = (apiKey) ->
 
   games:
 
+    getById: (gameId, config, cb) ->
+
+      qs = {}
+
+      if config.fields
+        qs.field_list = config.fields.join ','
+
+      sendRequest { url: "game/#{ gameId }", qs: qs }, cb
+
     list: (config, cb) ->
 
       unless config.sortBy
@@ -124,15 +133,6 @@ module.exports = (apiKey) ->
       config.filters.push { field: 'id', value: gameIds }
 
       @list config, cb
-
-    get: (gameId, config, cb) ->
-
-      qs = {}
-
-      if config.fields
-        qs.field_list = config.fields.join ','
-
-      sendRequest { url: "game/#{ gameId }", qs: qs }, cb
 
     search: (q, config, cb) ->
 
