@@ -1,9 +1,9 @@
 # Giant Bomb for Node.js
 
-This **_entirely unofficial_** project is a JavaScript wrapper around the [Giant Bomb API](http://www.giantbomb.com/api/). It aims to provide a simplified and consistent interface and more robust documentation.
+This **_entirely unofficial_** project is a JavaScript wrapper around the [Giant Bomb API](http://www.giantbomb.com/api/). It aims to provide a simple, consistent interface, and more robust documentation.
 
 ### Installation
-This package is only available as an NPM module. It does not support usage in browsers (you shouldn't be exposing your API key by making calls from the client side, anyways).
+This package is only available through npm. It does not support usage in browsers (you shouldn't be exposing your API key by making calls from the client side, anyways).
 
 ```
 npm install giantbomb
@@ -17,7 +17,7 @@ Just require the installed `giantbomb` module. It exports a single function that
 const giantbomb = require('giantbomb');
 const gb = giantbomb('API_KEY_HERE');
 
-gb.games.get(16909, (err, res, json) => {
+gb.games.getById(16909, (err, res, json) => {
   // Display details for Mass Effect.
   console.log(json.results);
 });
@@ -25,7 +25,7 @@ gb.games.get(16909, (err, res, json) => {
 
 ### Documentation
 
-Check out [the wiki](https://github.com/claflamme/node-giantbomb/wiki) for more information on how use the package.
+Check out [the wiki](https://github.com/claflamme/node-giantbomb/wiki) for more information on how to use the package.
 
 ### Support
 
