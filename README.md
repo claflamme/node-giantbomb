@@ -22,7 +22,7 @@ Just require the installed `giantbomb` module. It exports a single function that
 const giantbomb = require('giantbomb');
 const gb = giantbomb('API_KEY_HERE');
 
-gb.games.getById(16909, (err, res, json) => {
+gb.games.get(16909, (err, res, json) => {
   // Display details for Mass Effect.
   console.log(json.results);
 });
@@ -41,10 +41,3 @@ Post-V1, the plan is to add more convenience methods for common use cases - thin
 ### Support
 
 If you have any problems or questions, please [create an issue](https://github.com/claflamme/node-giantbomb/issues) or message [hogonalog](http://www.giantbomb.com/profile/hogonalog/) on GiantBomb.
-
-
-
-
-
-
-
