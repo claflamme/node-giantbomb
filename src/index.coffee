@@ -58,6 +58,15 @@ sendRequest = (opts, cb) ->
 
     cb err, res, body
 
+buildDetailQuery = (config) ->
+
+  qs = {}
+
+  if config.fields
+    qs.field_list = config.fields.join ','
+
+  return qs
+
 buildListQuery = (config) ->
 
   qs =
@@ -110,10 +119,7 @@ module.exports = (apiKey) ->
 
     get: (gameId, config, cb) ->
 
-      qs = {}
-
-      if config.fields
-        qs.field_list = config.fields.join ','
+      qs = buildDetailQuery config
 
       sendRequest { url: "game/#{ gameId }", qs: qs }, cb
 
@@ -126,6 +132,34 @@ module.exports = (apiKey) ->
       qs = buildListQuery config
 
       sendRequest { url: 'games', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters = config.filters or []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
+
+  platforms:
+
+    get: (platformId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "platform/#{ platformId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      # There's currently a bug in sorting by install_base, but it should be
+      # the default way to sort platforms (i.e. by popularity).
+
+      # unless config.sortBy
+      #   config.sortBy = 'install_base'
+      #   config.sortDir = 'desc'
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'platforms', qs: qs }, cb
 
     search: (q, config, cb) ->
 
