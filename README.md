@@ -32,6 +32,12 @@ gb.games.getById(16909, (err, res, json) => {
 
 Check out [the wiki](https://github.com/claflamme/node-giantbomb/wiki) for more information on how to use the package.
 
+### Roadmap
+
+The aim for V1 is to have `get()` and `list()` methods for every resource, with full support for paginating, filtering, and sorting. That way, all API functionality will be accessible (if a little convoluted). I'd also like to add `search()` methods where appropriate.
+
+Post-V1, the plan is to add more convenience methods for common use cases - things like `games.listByPlatform()` to make code easier on the eyes.
+
 ### Support
 
 If you have any problems or questions, please [create an issue](https://github.com/claflamme/node-giantbomb/issues) or message [hogonalog](http://www.giantbomb.com/profile/hogonalog/) on GiantBomb.
