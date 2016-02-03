@@ -1,5 +1,8 @@
 # Giant Bomb for Node.js
 
+[![Travis](https://img.shields.io/travis/claflamme/node-giantbomb.svg)](https://travis-ci.org/claflamme/node-giantbomb)
+[![npm](https://img.shields.io/npm/v/giantbomb.svg)](https://www.npmjs.com/package/giantbomb)
+
 This **_entirely unofficial_** project is a JavaScript wrapper around the [Giant Bomb API](http://www.giantbomb.com/api/). It aims to provide a simple, consistent interface, and more robust documentation.
 
 > **Heads up!!!** This package is immature, untested in production, and is being actively developed. Support for more resources will be added as time allows.
