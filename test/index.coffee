@@ -8,15 +8,15 @@ gb = giantbomb process.env.API_KEY
 ['search'].forEach (suite) ->
   require("./#{ suite }") test, gb
 
-test 'games.getById - no config', (t) ->
+test 'games.get - no config', (t) ->
 
-  gb.games.getById 16909, {}, (err, res, body) ->
+  gb.games.get 16909, {}, (err, res, body) ->
     t.ok body.results.id, 'Returns game details.'
     t.end()
 
-test 'games.getById - specific fields', (t) ->
+test 'games.get - specific fields', (t) ->
 
-  gb.games.getById 16909, { fields: ['name'] }, (err, res, body) ->
+  gb.games.get 16909, { fields: ['name'] }, (err, res, body) ->
     t.ok body.results.name, 'Contains requested field.'
     t.equal Object.keys(body.results).length, 1, 'Only contains one field.'
     t.end()
@@ -38,10 +38,4 @@ test 'games.list - specific fields', (t) ->
     t.equal numKeys, 2, 'Has expected number of fields.'
     t.ok game.name, 'Has name.'
     t.ok game.id, 'Has id.'
-    t.end()
-
-test 'games.listById - no config', (t) ->
-
-  gb.games.listById [16909, 21590], {}, (err, res, body) ->
-    t.equal body.results.length, 2, 'Has 2 results.'
     t.end()

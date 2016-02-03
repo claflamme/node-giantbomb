@@ -108,7 +108,7 @@ module.exports = (apiKey) ->
 
   games:
 
-    getById: (gameId, config, cb) ->
+    get: (gameId, config, cb) ->
 
       qs = {}
 
@@ -126,13 +126,6 @@ module.exports = (apiKey) ->
       qs = buildListQuery config
 
       sendRequest { url: 'games', qs: qs }, cb
-
-    listById: (gameIds, config, cb) ->
-
-      config.filters = config.filters or []
-      config.filters.push { field: 'id', value: gameIds }
-
-      @list config, cb
 
     search: (q, config, cb) ->
 
