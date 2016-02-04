@@ -178,6 +178,10 @@ module.exports = (apiKey) ->
 
     list: (config, cb) ->
 
+      unless config.sortBy
+        config.sortBy = 'name'
+        config.sortDir = 'asc'
+
       qs = buildListQuery config
 
       sendRequest { url: 'companies', qs: qs }, cb
