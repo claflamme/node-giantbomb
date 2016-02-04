@@ -5,7 +5,7 @@ giantbomb = require '../index'
 test.createStream().pipe(tapSpec()).pipe process.stdout
 gb = giantbomb process.env.API_KEY
 
-['search', 'platforms'].forEach (suite) ->
+['search', 'platforms', 'companies'].forEach (suite) ->
   require("./#{ suite }") test, gb
 
 test 'games.get - no config', (t) ->

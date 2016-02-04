@@ -167,3 +167,24 @@ module.exports = (apiKey) ->
       config.filters.push { field: 'name', value: q }
 
       @list config, cb
+
+  companies:
+
+    get: (companyId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "company/#{ companyId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'companies', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters = config.filters or []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
