@@ -210,3 +210,21 @@ module.exports = (apiKey) ->
       qs = buildListQuery config
 
       sendRequest { url: 'reviews', qs: qs }, cb
+
+  userReviews:
+
+    get: (reviewId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "user_review/#{ reviewId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      unless config.sortBy
+        config.sortBy = 'date_added'
+        config.sortDir = 'desc'
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'user_reviews', qs: qs }, cb
