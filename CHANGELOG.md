@@ -1,3 +1,24 @@
+Upcoming
+--------
+
+- Support for the following resources:
+  - accessories
+  - characters
+  - concepts
+  - franchises
+  - game_ratings
+  - genres
+  - locations
+  - objects
+  - people
+  - promos
+  - rating_boards
+  - regions
+  - releases
+  - themes
+  - videos
+  - video_types
+
 0.3.0
 -----
 
