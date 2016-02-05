@@ -135,7 +135,7 @@ module.exports = (apiKey) ->
 
     search: (q, config, cb) ->
 
-      config.filters = config.filters or []
+      config.filters or= []
       config.filters.push { field: 'name', value: q }
 
       @list config, cb
@@ -163,7 +163,7 @@ module.exports = (apiKey) ->
 
     search: (q, config, cb) ->
 
-      config.filters = config.filters or []
+      config.filters or= []
       config.filters.push { field: 'name', value: q }
 
       @list config, cb
@@ -188,7 +188,7 @@ module.exports = (apiKey) ->
 
     search: (q, config, cb) ->
 
-      config.filters = config.filters or []
+      config.filters or= []
       config.filters.push { field: 'name', value: q }
 
       @list config, cb
