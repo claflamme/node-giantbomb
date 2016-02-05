@@ -1,5 +1,7 @@
-Upcoming
---------
+0.3.0
+-----
+
+2016-02-05
 
 - Added support for companies with `get()`, `list()`, and `search()` methods.
 - Added support for reviews and user reviews, but only with `get()` and `list()` methods. The inability to filter on the `deck` or `description` fields makes searching kind of pointless.
