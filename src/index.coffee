@@ -228,3 +228,28 @@ module.exports = (apiKey) ->
       qs = buildListQuery config
 
       sendRequest { url: 'user_reviews', qs: qs }, cb
+
+  gameRatings:
+
+    get: (gameRatingId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "game_rating/#{ gameRatingId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      unless config.sortBy
+        config.sortBy = 'name'
+        config.sortDir = 'asc'
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'game_ratings', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
