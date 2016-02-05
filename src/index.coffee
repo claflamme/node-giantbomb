@@ -254,6 +254,27 @@ module.exports = (apiKey) ->
 
       @list config, cb
 
+  ratingBoards:
+
+    get: (ratingBoardId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "rating_board/#{ ratingBoardId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'rating_boards', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
+
   genres:
 
     get: (genreId, config, cb) ->
