@@ -337,3 +337,24 @@ module.exports = (apiKey) ->
       config.filters.push { field: 'name', value: q }
 
       @list config, cb
+
+  concepts:
+
+    get: (conceptId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "concept/#{ conceptId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'concepts', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
