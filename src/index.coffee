@@ -316,3 +316,24 @@ module.exports = (apiKey) ->
       config.filters.push { field: 'name', value: q }
 
       @list config, cb
+
+  characters:
+
+    get: (characterId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "character/#{ characterId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'characters', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
