@@ -358,3 +358,24 @@ module.exports = (apiKey) ->
       config.filters.push { field: 'name', value: q }
 
       @list config, cb
+
+  people:
+
+    get: (personId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "person/#{ personId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'people', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
