@@ -1,21 +1,22 @@
-Upcoming
---------
+0.4.0
+-----
 
-- Support for the following resources:
-  - accessories
+2016-02-08
+
+- Added support for the following resource types, with `get()` and `list()`. Most resources have `search()` methods, as well.
   - characters
   - concepts
   - franchises
   - game_ratings
   - genres
-  - locations
-  - objects
-  - people
-  - promos
   - rating_boards
+  - people
+  - locations
   - regions
-  - releases
   - themes
+  - releases
+  - accessories
+  - objects
   - videos
   - video_types
 

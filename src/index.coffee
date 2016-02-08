@@ -421,3 +421,129 @@ module.exports = (apiKey) ->
       config.filters.push { field: 'name', value: q }
 
       @list config, cb
+
+  themes:
+
+    get: (themeId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "theme/#{ themeId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'themes', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
+
+  releases:
+
+    get: (releaseId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "release/#{ releaseId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'releases', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
+
+  accessories:
+
+    get: (accessoryId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "accessory/#{ accessoryId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'accessories', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
+
+  objects:
+
+    get: (objectId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "object/#{ objectId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'objects', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
+
+  videos:
+
+    get: (videoId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "video/#{ videoId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'videos', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
+
+  videoTypes:
+
+    get: (videoTypeId, config, cb) ->
+
+      qs = buildDetailQuery config
+
+      sendRequest { url: "video_type/#{ videoTypeId }", qs: qs }, cb
+
+    list: (config, cb) ->
+
+      qs = buildListQuery config
+
+      sendRequest { url: 'video_types', qs: qs }, cb
+
+    search: (q, config, cb) ->
+
+      config.filters or= []
+      config.filters.push { field: 'name', value: q }
+
+      @list config, cb
