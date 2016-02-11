@@ -1,6 +1,10 @@
 test = require 'tape'
 tapSpec = require 'tap-spec'
-giantbomb = require '../index'
+giantbomb = require '../dist/index'
+
+unless process.env.API_KEY
+  console.log 'You need to set an API_KEY environment variable.'
+  process.exit()
 
 test.createStream().pipe(tapSpec()).pipe process.stdout
 gb = giantbomb process.env.API_KEY

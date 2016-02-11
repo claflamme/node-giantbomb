@@ -7,9 +7,9 @@
   - characters
   - concepts
   - franchises
-  - game_ratings
+  - gameRatings
   - genres
-  - rating_boards
+  - ratingBoards
   - people
   - locations
   - regions
@@ -18,7 +18,7 @@
   - accessories
   - objects
   - videos
-  - video_types
+  - videoTypes
 
 0.3.0
 -----

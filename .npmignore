@@ -1,4 +1,5 @@
 test/
 node_modules/
+src/
 .DS_Store
 *.log
