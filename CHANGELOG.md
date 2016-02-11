@@ -1,3 +1,7 @@
+#### 0.4.1
+
+- Removed coffee-script as a dependency, compilation is now done in a prepublish script.
+
 0.4.0
 -----
 
