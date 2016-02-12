@@ -5,8 +5,6 @@
 
 This **_entirely unofficial_** project is a JavaScript wrapper around the [Giant Bomb API](http://www.giantbomb.com/api/). It aims to provide a simple, consistent interface with robust documentation.
 
-> **Heads up!!!** This package is immature, untested in production, and is being actively developed.
-
 ### Installation
 
 ```
@@ -28,9 +26,6 @@ gb.games.get(16909, {}, (err, res, json) => {
 ### Documentation
 
 Check out [the wiki](https://github.com/claflamme/node-giantbomb/wiki) for more information and examples.
-### Roadmap
-
-Post-V1, the plan is to add more convenience methods for common use cases - things like `games.listByPlatform()` to make code easier on the eyes.
 
 ### Support
 
