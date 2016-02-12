@@ -3,9 +3,9 @@
 [![Travis](https://img.shields.io/travis/claflamme/node-giantbomb.svg)](https://travis-ci.org/claflamme/node-giantbomb)
 [![npm](https://img.shields.io/npm/v/giantbomb.svg)](https://www.npmjs.com/package/giantbomb)
 
-This **_entirely unofficial_** project is a JavaScript wrapper around the [Giant Bomb API](http://www.giantbomb.com/api/). It aims to provide a simple, consistent interface, and more robust documentation.
+This **_entirely unofficial_** project is a JavaScript wrapper around the [Giant Bomb API](http://www.giantbomb.com/api/). It aims to provide a simple, consistent interface with robust documentation.
 
-> **Heads up!!!** This package is immature, untested in production, and is being actively developed. Support for more resources will be added as time allows.
+> **Heads up!!!** This package is immature, untested in production, and is being actively developed.
 
 ### Installation
 
@@ -29,8 +29,6 @@ gb.games.get(16909, {}, (err, res, json) => {
 
 Check out [the wiki](https://github.com/claflamme/node-giantbomb/wiki) for more information and examples.
 ### Roadmap
-
-The aim for V1 is to have `get()` and `list()` methods for every resource, with full support for paginating, filtering, and sorting. That way, all API functionality will be accessible (if a little convoluted). I'd also like to add `search()` methods where appropriate.
 
 Post-V1, the plan is to add more convenience methods for common use cases - things like `games.listByPlatform()` to make code easier on the eyes.
 
