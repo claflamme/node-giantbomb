@@ -46,8 +46,7 @@ sendRequest = (opts, cb) ->
   opts = _.defaultsDeep opts, httpDefaults
 
   # A wee bit of debugging help.
-  if process.env.NODE_DEBUG is 'giantbomb'
-    request.debug = true
+  request.debug = process.env.NODE_DEBUG is 'giantbomb'
 
   request opts, (err, res, body) ->
 

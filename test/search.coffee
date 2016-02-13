@@ -1,14 +1,9 @@
 module.exports = (test, gb) ->
 
-  test 'search - no config', (t) ->
-
-    gb.search 'mass', {}, (err, res, body) ->
-      t.true Array.isArray(body.results), 'Returns results.'
-      t.end()
-
-  test 'search - specific resources', (t) ->
+  test 'search()', (t) ->
 
     config =
+      fields: ['id', 'name']
       resources: ['game', 'person']
 
     # Searching in specific resources.
@@ -16,7 +11,7 @@ module.exports = (test, gb) ->
       t.true Array.isArray(body.results), 'Returns results.'
       t.end()
 
-  test 'search - limiting results on multiple resources', (t) ->
+  test 'search() - limiting results on multiple resources', (t) ->
 
     t.plan 1
 

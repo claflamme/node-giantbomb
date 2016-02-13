@@ -23,8 +23,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node_modules/.bin/coffee test/index.coffee",
-    "coverage": "nyc npm test && nyc report --reporter=html",
+    "test": "nyc coffee test/index.coffee",
+    "posttest": "nyc report --reporter=html",
     "prepublish": "node_modules/.bin/coffee -o dist -c src",
     "watch": "node_modules/.bin/coffee -o dist -cw src"
   },
