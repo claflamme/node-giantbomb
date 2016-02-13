@@ -1,6 +1,7 @@
 test/
 node_modules/
 src/
+coverage/
 .DS_Store
 *.log
 .nyc_output

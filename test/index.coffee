@@ -3,7 +3,7 @@ tapSpec = require 'tap-spec'
 giantbomb = require '../dist/index'
 
 unless process.env.API_KEY
-  console.log 'You need to set an API_KEY environment variable.'
+  console.log '>> !!! You need to set an API_KEY environment variable !!! <<\n'
   process.exit()
 
 test.createStream().pipe(tapSpec()).pipe process.stdout
