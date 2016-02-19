@@ -5,6 +5,8 @@ request = require 'request'
 httpDefaults =
   baseUrl: 'http://api.giantbomb.com/'
   json: true
+  headers:
+    'User-Agent': 'Node.js client - npmjs.com/package/giantbomb'
   qs:
     api_key: ''
     format: 'json'
