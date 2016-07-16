@@ -24,6 +24,7 @@
   },
   "scripts": {
     "test": "nyc coffee test/index.coffee",
+    "report:coveralls": "nyc report --reporter=text-lcov | coveralls",
     "posttest": "nyc report --reporter=html",
     "prepublish": "coffee -o dist -c src",
     "watch": "coffee -o dist -cw src"
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "coffee-script": "^1.10.0",
+    "coveralls": "^2.11.11",
     "nyc": "^5.6.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.4.0"
