@@ -1,24 +1,30 @@
+searchWithNoConfig = (t, gb) ->
+  gb.search 'mass', {}, (err, res, body) ->
+    t.true Array.isArray(body.results), 'Returns results with no config.'
+
+searchWithFields = (t, gb) ->
+  config = fields: ['id', 'name']
+  gb.search 'mass', config, (err, res, body) ->
+    t.true Array.isArray(body.results), 'Returns results with fields selected.'
+
+searchWithFieldsAndResources = (t, gb) ->
+  config =
+    fields: ['id', 'name']
+    resources: ['game', 'person']
+  gb.search 'mass', config, (err, res, body) ->
+    msg = 'Returns results with fields and resources selected.'
+    t.true Array.isArray(body.results), msg
+
+throwsWhenLimitingMultipleResources = (t, gb) ->
+  testCall = ->
+    gb.search 'mass', limit: 2
+  t.throws testCall, 'Throws when limiting searches across multiple resources.'
+
 module.exports = (test, gb) ->
 
-  test 'search()', (t) ->
-
-    config =
-      fields: ['id', 'name']
-      resources: ['game', 'person']
-
-    # Searching in specific resources.
-    gb.search 'mass', config, (err, res, body) ->
-      t.true Array.isArray(body.results), 'Returns results.'
-      t.end()
-
-  test 'search() - limiting results on multiple resources', (t) ->
-
-    t.plan 1
-
-    config =
-      limit: 2
-
-    testCall = ->
-      gb.search 'mass', config
-
-    t.throws testCall, 'Throws an exception.'
+  test 'search', (t) ->
+    t.plan 4
+    searchWithNoConfig t, gb
+    searchWithFields t, gb
+    searchWithFieldsAndResources t, gb
+    throwsWhenLimitingMultipleResources t, gb
