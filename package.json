@@ -25,8 +25,8 @@
   "scripts": {
     "test": "nyc coffee test/index.coffee",
     "posttest": "nyc report --reporter=html",
-    "prepublish": "node_modules/.bin/coffee -o dist -c src",
-    "watch": "node_modules/.bin/coffee -o dist -cw src"
+    "prepublish": "coffee -o dist -c src",
+    "watch": "coffee -o dist -cw src"
   },
   "license": "ISC",
   "dependencies": {
