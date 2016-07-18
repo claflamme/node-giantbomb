@@ -1,24 +1,35 @@
 api = require './api'
 resources = require './resources'
 
-buildResourceMethods = (api, resource) ->
+buildDetailFunc = (api, resource) ->
 
-  output = {}
+  (resourceId, config, cb) ->
+    resourcePath = "#{ resource.singular }/#{ resourceId }"
+    api.sendDetailRequest resourcePath, config, cb
 
-  output.get = (resourceId, config, cb) ->
-    api.sendDetailRequest "#{ resource.singular }/#{ resourceId }", config, cb
+buildListFunc = (api, resource) ->
 
-  output.list = (config, cb) ->
+  (config, cb) ->
     if resource.sortBy and not config.sortBy
       config.sortBy = resource.sortBy
       config.sortDir = resource.sortDir
     api.sendListRequest resource.plural, config, cb
 
+buildSearchFunc = (listFunc, resource) ->
+
+  (q, config, cb) ->
+    config.filters or= []
+    config.filters.push { field: resource.searchBy, value: q }
+    listFunc config, cb
+
+buildResourceMethods = (api, resource) ->
+
+  output =
+    get: buildDetailFunc api, resource
+    list: buildListFunc api, resource
+
   if resource.searchBy
-    output.search = (q, config, cb) ->
-      config.filters or= []
-      config.filters.push { field: resource.searchBy, value: q }
-      output.list config, cb
+    output.search = buildSearchFunc output.list, resource
 
   output
 
