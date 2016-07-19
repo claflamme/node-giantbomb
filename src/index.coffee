@@ -1,11 +1,28 @@
 api = require './api'
 resources = require './resources'
 
+# ------------------------------------------------------------------------------
+# Detail functions fetch a single item, by ID, from a resource. I use the word
+# "detail" because they usually return more details about the resource than if
+# it were returned as part of a list.
+#
+# You can access a resource's detail method via get(). Example:
+#
+#   gb.games.get(1234, {}, (err, res, json) => { ... });
+
 buildDetailFunc = (api, resource) ->
 
   (resourceId, config, cb) ->
     resourcePath = "#{ resource.singular }/#{ resourceId }"
     api.sendDetailRequest resourcePath, config, cb
+
+# ------------------------------------------------------------------------------
+# List functions return a paginated collection of items from a resource. They
+# support filtering and sorting, as well.
+#
+# List methods are accessible via list(). Example:
+#
+#   gb.platforms.list({}, (err, res, json) => { ... });
 
 buildListFunc = (api, resource) ->
 
@@ -15,12 +32,25 @@ buildListFunc = (api, resource) ->
       config.sortDir = resource.sortDir
     api.sendListRequest resource.plural, config, cb
 
+# ------------------------------------------------------------------------------
+# Search functions are just for convenience. They're the same as list functions
+# but with a filter pre-applied to the field by which you'd most likely want to
+# search. They still accept all the same config options as a list function.
+#
+# Certain searchable resources will have a search() method. Example:
+#
+#   gb.companies.search('double fine', {}, (err, res, json) => { ... });
+
 buildSearchFunc = (listFunc, resource) ->
 
   (q, config, cb) ->
     config.filters or= []
     config.filters.push { field: resource.searchBy, value: q }
     listFunc config, cb
+
+# ------------------------------------------------------------------------------
+# This function assigns the get() and list() methods for a given resource. If
+# the resource has a `searchBy` property, a search() method is also assigned.
 
 buildResourceMethods = (api, resource) ->
 
