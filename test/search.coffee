@@ -15,16 +15,10 @@ searchWithFieldsAndResources = (t, gb) ->
     msg = 'Returns results with fields and resources selected.'
     t.true Array.isArray(body.results), msg
 
-throwsWhenLimitingMultipleResources = (t, gb) ->
-  testCall = ->
-    gb.search 'mass', limit: 2
-  t.throws testCall, 'Throws when limiting searches across multiple resources.'
-
 module.exports = (test, gb) ->
 
   test 'search', (t) ->
-    t.plan 4
+    t.plan 3
     searchWithNoConfig t, gb
     searchWithFields t, gb
     searchWithFieldsAndResources t, gb
-    throwsWhenLimitingMultipleResources t, gb

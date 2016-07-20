@@ -63,22 +63,19 @@ buildResourceMethods = (api, resource) ->
 
   output
 
-module.exports = (apiKey) ->
+# ------------------------------------------------------------------------------
+# The search resource is actually a special endpoint that allows you to query
+# more than one resource per request.
+#
+# If you search across multiple resources (e.g. games and platforms), it will
+# concatenate the results from both resources into one list. This means accurate
+# pagination isn't possible, since different resources may return a different
+# number of results per page (it also means you can't filter or sort the
+# results, since not all resources will have the same fields).
 
-  api = api apiKey
-  methods = {}
+buildSearchResource = (api) ->
 
-  for resourceName, resourceConfig of resources
-    methods[resourceName] = buildResourceMethods api, resourceConfig
-
-  # The search API is kind of fucked up compared to other list resources.
-  # It takes different parameters and returns different results, so it has its
-  # own special logic here.
-  methods.search = (q, config, cb) ->
-
-    if config.limit
-      unless config.resources and config.resources.length is 1
-        throw new Error 'Limit can only be set if searching a single resource.'
+  (q, config, cb) ->
 
     qs =
       query: q
@@ -93,4 +90,19 @@ module.exports = (apiKey) ->
 
     api.sendRequest { url: 'search', qs: qs }, cb
 
-  return methods
+# ------------------------------------------------------------------------------
+# This package provides an object with properties for each giantbomb resource
+# (e.g. games, platforms, etc). Each property has methods for fetching data
+# from that resource.
+
+buildResources = (api, resources) ->
+
+  methods =
+    search: buildSearchResource api
+
+  for name, resource of resources
+    methods[name] = buildResourceMethods api, resource
+
+  methods
+
+module.exports = (apiKey) -> buildResources api(apiKey), resources
