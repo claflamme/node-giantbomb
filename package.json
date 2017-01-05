@@ -23,7 +23,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "nyc coffee test/index.coffee",
+    "test": "npm run prepublish && nyc coffee test/index.coffee",
     "report:coveralls": "nyc report --reporter=text-lcov | coveralls",
     "posttest": "nyc report --reporter=html",
     "prepublish": "coffee -o dist -c src",
