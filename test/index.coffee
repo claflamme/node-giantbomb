@@ -10,8 +10,5 @@ test.createStream().pipe(tapSpec()).pipe process.stdout
 
 gb = giantbomb process.env.API_KEY
 
-[
-  'search'
-  'games'
-].forEach (suite) ->
+['search', 'games', 'platforms'].forEach (suite) ->
   require("./#{ suite }") test, gb

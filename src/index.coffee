@@ -12,7 +12,12 @@ resources = require './resources'
 
 buildDetailFunc = (api, resource) ->
 
-  (resourceId, config, cb) ->
+  ->
+    if arguments.length is 2
+      [resourceId, cb] = arguments
+      config = {}
+    else
+      [resourceId, config, cb] = arguments
     resourcePath = "#{ resource.singular }/#{ resourceId }"
     api.sendDetailRequest resourcePath, config, cb
 
@@ -26,7 +31,12 @@ buildDetailFunc = (api, resource) ->
 
 buildListFunc = (api, resource) ->
 
-  (config, cb) ->
+  ->
+    if arguments.length is 1
+      [cb] = arguments
+      config = {}
+    else
+      [config, cb] = arguments
     if resource.sortBy and not config.sortBy
       config.sortBy = resource.sortBy
       config.sortDir = resource.sortDir
@@ -43,7 +53,12 @@ buildListFunc = (api, resource) ->
 
 buildSearchFunc = (listFunc, resource) ->
 
-  (q, config, cb) ->
+  ->
+    if arguments.length is 2
+      [q, cb] = arguments
+      config = {}
+    else
+      [q, config, cb] = arguments
     config.filters or= []
     config.filters.push { field: resource.searchBy, value: q }
     listFunc config, cb
