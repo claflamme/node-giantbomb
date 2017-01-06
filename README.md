@@ -18,8 +18,8 @@ npm install giantbomb
 const giantbomb = require('giantbomb');
 const gb = giantbomb('API_KEY_HERE');
 
-gb.games.get(16909, {}, (err, res, json) => {
-  // Display details for Mass Effect.
+// Display details for Mass Effect.
+gb.games.get(16909, (err, res, json) => {
   console.log(json.results);
 });
 ```
