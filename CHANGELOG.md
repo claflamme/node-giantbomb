@@ -1,3 +1,10 @@
+1.0.0
+-----
+
+2017-01-06
+
+- Refactored resource methods to make the config argument optional.
+
 #### 0.4.1
 
 2016-02-11
