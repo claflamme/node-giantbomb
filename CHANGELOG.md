@@ -1,5 +1,13 @@
+#### 2.0.1
+
+2017-03-15
+
+- Updated to use the new giantbomb.com/api URL.
+
 2.0.0
 -----
+
+2017-03-15
 
 - Removed the `videoTypes` resource. The video_type and video_types endpoints are now deprecated by giantbomb, and this package won't support them going forward.
 - Added support for new video resources, with `get()` and `list()` methods for each (neither resource is searchable).
