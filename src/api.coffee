@@ -3,7 +3,7 @@ request = require 'request'
 _ = require 'lodash'
 
 httpDefaults =
-  baseUrl: 'http://api.giantbomb.com/'
+  baseUrl: 'https://www.giantbomb.com/api'
   json: true
   headers:
     'User-Agent': 'Node.js client - npmjs.com/package/giantbomb'
