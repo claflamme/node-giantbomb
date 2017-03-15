@@ -98,7 +98,7 @@ module.exports = (apiKey) ->
 
       if body.number_of_total_results
         total = body.number_of_total_results
-        perPage = body.number_of_page_results
+        perPage = body.limit
         body.number_of_total_pages = Math.ceil total / perPage
 
       cb err, res, body
