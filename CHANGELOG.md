@@ -1,3 +1,11 @@
+2.0.0
+-----
+
+- Removed the `videoTypes` resource. The video_type and video_types endpoints are now deprecated by giantbomb, and this package won't support them going forward.
+- Added support for new video resources, with `get()` and `list()` methods for each (neither resource is searchable).
+  - videoCategories
+  - videoShows
+
 1.0.0
 -----
 

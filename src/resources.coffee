@@ -103,7 +103,10 @@ module.exports =
     plural: 'accessories'
     searchBy: 'name'
 
-  videoTypes:
-    singular: 'video_type'
-    plural: 'video_types'
-    searchBy: 'name'
+  videoCategories:
+    singular: 'video_category'
+    plural: 'video_categories'
+
+  videoShows:
+    singular: 'video_show'
+    plural: 'video_shows'
