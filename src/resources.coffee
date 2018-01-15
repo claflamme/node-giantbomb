@@ -110,3 +110,8 @@ module.exports =
   videoShows:
     singular: 'video_show'
     plural: 'video_shows'
+
+  dlc:
+    singular: 'dlc'
+    plural: 'dlcs'
+    searchBy: 'name'

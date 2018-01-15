@@ -1,6 +1,6 @@
 {
   "name": "giantbomb",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "Cory LaFlamme <me@corylaflamme.com> (https://github.com/claflamme)",
   "description": "A simple, consistent wrapper for the Giant Bomb API.",
   "keywords": [
